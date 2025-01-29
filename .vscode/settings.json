@@ -1,0 +1,12 @@
+{
+    "extensions.ignoreRecommendations": true,
+    "C_Cpp.default.configurationProvider": "particle.particle-vscode-core",
+    "files.associations": {
+        "*.ino": "cpp",
+        "iostream": "cpp"
+    },
+    "particle.firmwareVersion": "5.9.0",
+    "particle.targetPlatform": "p2",
+    "particle.targetDevice": "mhk_photon",
+    "cmake.ignoreCMakeListsMissing": true
+}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Rate Monitor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #bpmDisplay {
+            font-size: 2em;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Heart Rate Monitor</h1>
+    <p>Click the button below to get the current heart rate from the sensor:</p>
+    
+    <button id="getBPMButton">Get BPM</button>
+
+    <div id="bpmDisplay">BPM: Not available</div>
+
+    <script>
+        const particleAccessToken = '6f1da6c9801b9d1360affe4e57065bc7cdd03775';
+        const particleDeviceId = '0a10aced202194944a067b2c';
+
+        document.getElementById('getBPMButton').addEventListener('click', function() {
+            fetchBPM();
+        });
+
+        function fetchBPM() {
+            const url = `https://api.particle.io/v1/devices/${particleDeviceId}/BPM?access_token=${particleAccessToken}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.result) {
+                        const adjustedBPM = data.result;
+                        document.getElementById('bpmDisplay').innerText = `BPM: ${adjustedBPM}`;
+                    } else {
+                        document.getElementById('bpmDisplay').innerText = 'Error retrieving BPM';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching BPM:', error);
+                    document.getElementById('bpmDisplay').innerText = 'Error retrieving BPM';
+                });
+        }
+    </script>
+</body>
+</html>
